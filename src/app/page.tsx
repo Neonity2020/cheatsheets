@@ -203,11 +203,28 @@ const t: {
 
 export default function Home() {
   const [language, setLanguage] = useState<keyof LangText>("zh");
+  const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
+  
   return (
     <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
       <div className="max-w-7xl mx-auto">
-        {/* 语言切换按钮 */}
-        <div className="flex justify-end mb-4">
+        {/* 顶部按钮区域 */}
+        <div className="flex justify-between items-center mb-4">
+          <div className="flex space-x-2">
+            <button
+              className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 font-semibold transition"
+              onClick={() => setShowRegister(true)}
+            >
+              {language === "zh" ? "注册" : "Register"}
+            </button>
+            <button
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 font-semibold transition"
+              onClick={() => setShowLogin(true)}
+            >
+              {language === "zh" ? "登录" : "Login"}
+            </button>
+          </div>
           <button
             className="px-4 py-2 bg-blue-200 rounded hover:bg-blue-300 text-blue-900 font-semibold transition"
             onClick={() => setLanguage(language === "zh" ? "en" : "zh")}
@@ -215,6 +232,117 @@ export default function Home() {
             {language === "zh" ? "English" : "中文"}
           </button>
         </div>
+        
+        {/* 登录模态框 */}
+        {showLogin && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-6 w-96 max-w-md">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-bold">{language === "zh" ? "登录" : "Login"}</h2>
+                <button
+                  onClick={() => setShowLogin(false)}
+                  className="text-gray-500 hover:text-gray-700"
+                >
+                  ✕
+                </button>
+              </div>
+              <form className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1">
+                    {language === "zh" ? "邮箱" : "Email"}
+                  </label>
+                  <input
+                    type="email"
+                    className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder={language === "zh" ? "请输入邮箱" : "Enter your email"}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">
+                    {language === "zh" ? "密码" : "Password"}
+                  </label>
+                  <input
+                    type="password"
+                    className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder={language === "zh" ? "请输入密码" : "Enter your password"}
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition"
+                >
+                  {language === "zh" ? "登录" : "Login"}
+                </button>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* 注册模态框 */}
+        {showRegister && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-6 w-96 max-w-md">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-bold">{language === "zh" ? "注册" : "Register"}</h2>
+                <button
+                  onClick={() => setShowRegister(false)}
+                  className="text-gray-500 hover:text-gray-700"
+                >
+                  ✕
+                </button>
+              </div>
+              <form className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1">
+                    {language === "zh" ? "用户名" : "Username"}
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder={language === "zh" ? "请输入用户名" : "Enter your username"}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">
+                    {language === "zh" ? "邮箱" : "Email"}
+                  </label>
+                  <input
+                    type="email"
+                    className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder={language === "zh" ? "请输入邮箱" : "Enter your email"}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">
+                    {language === "zh" ? "密码" : "Password"}
+                  </label>
+                  <input
+                    type="password"
+                    className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder={language === "zh" ? "请输入密码" : "Enter your password"}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">
+                    {language === "zh" ? "确认密码" : "Confirm Password"}
+                  </label>
+                  <input
+                    type="password"
+                    className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder={language === "zh" ? "请再次输入密码" : "Confirm your password"}
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition"
+                >
+                  {language === "zh" ? "注册" : "Register"}
+                </button>
+              </form>
+            </div>
+          </div>
+        )}
+
         {/* 标题区域 */}
         <div className="text-center mb-8">
           <h1 className="text-5xl font-bold text-gray-800 mb-4">{t.title[language]}</h1>
